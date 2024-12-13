@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>SUMMARAIZE</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/img/favicon.png" rel="icon">
+  <link href="static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="static/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS Files -->
+  <link href="static/css/variables.css" rel="stylesheet">
+  <link href="static/css/main.css" rel="stylesheet">
+
+  <style>
+    
+    .video-container {
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom: 20px;
+    }
+
+    .video-item {
+      display: inline-block;
+      margin-right: 10px;
+      cursor: pointer;
+      /* Add cursor pointer for video items */
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1050;
+    }
+
+    .modal-video {
+      width: 70%;
+      z-index: 1060;
+    }
+
+    /* Arrow style */
+    .arrow {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      color: #fff;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 50%;
+      display: none;
+      /* Initially hide the arrows */
+    }
+
+    .left-arrow {
+      left: 10px;
+    }
+
+    .right-arrow {
+      right: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="static/img/logo.png" alt="">
+        <h1>SUMMARAIZE</h1>
+      </a>
+      <nav id="navbar" class="navbar"></nav>
+      <div class="position-relative">
+        <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+        <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
+        <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+        <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        <div class="search-form-wrap js-search-form-wrap">
+          <form action="search-result.html" class="search-form">
+            <span class="icon bi-search"></span>
+            <input type="text" placeholder="Search" class="form-control">
+            <button class="btn js-search-close"><span class="bi-x"></span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+    <div class="container mt-5">
+      <table class="table" id="videoTable">
+        <thead>
+          <tr>
+            <!-- <th>Videos</th> -->
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </main><!-- End #main -->
+
+  <!-- Modal Backdrop -->
+  <div id="videoModal" class="modal-backdrop">
+    <video class="modal-video" controls muted="muted"></video>
+  </div>
+
+  <!-- Vendor JS Files -->
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="static/vendor/aos/aos.js"></script>
+  <script src="static/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script>
+   // var categoriesAndVideos = []
+    // Example data with categories and videos
+   var categoriesAndVideos = [
+      {
+        category: 'Science',
+        videos: [
+          { url: '{{ url_for("static", filename="video/output_8d69543d-c04a-4ed5-8321-dca686381ab4.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/fast-forward-forget-chatbots-ai-agents-are-the-future/'},
+          { url: '{{ url_for("static", filename="video/output_3e31b4de-9f45-4031-a7b8-26506363f4b1.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-google-gemini-iphone/'},
+          { url: '{{ url_for("static", filename="video/output_6f7f9362-d8e2-40b9-a9bb-42fbe4eec5f3.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/proof-you-can-train-ai-without-slurping-copyrighted-content/'},
+          { url: '{{ url_for("static", filename="video/output_0b0cdbda-d80c-4726-82c6-c93d8a3a0fb0.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/fast-forward-forget-chatbots-ai-agents-are-the-future/'},
+          { url: '{{ url_for("static", filename="video/output_20bd2aa1-207e-4631-a63d-a8ca4d8ae490.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-ios-google-chrome-critical-update-march/'},
+          { url: '{{ url_for("static", filename="video/output_71db2438-99ff-46d7-864f-d8f43847c150.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://readwrite.com/el-salvador-gained-84m-from-bitcoin-holdings/'},
+          { url: '{{ url_for("static", filename="video/output_642f78f5-ce84-4288-a7c0-42b05800037a.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-google-gemini-iphone/'},
+          { url: '{{ url_for("static", filename="video/output_59655eb3-ab29-4f42-92d7-e0503ac12241.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/the-science-of-crypto-forensics-court-battle/'},
+          { url: '{{ url_for("static", filename="video/output_c1256120-64d8-490c-bb8a-c29d39d249e2.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/willonius-hatcher-the-filmmaker-who-says-ai-is-reparations/'}
+          
+        ]
+      },
+      {
+        category: 'Sports',
+        videos: [
+        { url: '{{ url_for("static", filename="video/output_71db2438-99ff-46d7-864f-d8f43847c150.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://readwrite.com/el-salvador-gained-84m-from-bitcoin-holdings/' },
+  { url: '{{ url_for("static", filename="video/output_0b0cdbda-d80c-4726-82c6-c93d8a3a0fb0.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/fast-forward-forget-chatbots-ai-agents-are-the-future/' },
+  { url: '{{ url_for("static", filename="video/output_59655eb3-ab29-4f42-92d7-e0503ac12241.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/the-science-of-crypto-forensics-court-battle/' },
+  { url: '{{ url_for("static", filename="video/output_20bd2aa1-207e-4631-a63d-a8ca4d8ae490.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-ios-google-chrome-critical-update-march/' },
+  { url: '{{ url_for("static", filename="video/output_6f7f9362-d8e2-40b9-a9bb-42fbe4eec5f3.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/proof-you-can-train-ai-without-slurping-copyrighted-content/' },
+  { url: '{{ url_for("static", filename="video/output_3e31b4de-9f45-4031-a7b8-26506363f4b1.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-google-gemini-iphone/' },
+  { url: '{{ url_for("static", filename="video/output_c1256120-64d8-490c-bb8a-c29d39d249e2.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/willonius-hatcher-the-filmmaker-who-says-ai-is-reparations/' },
+  { url: '{{ url_for("static", filename="video/output_8d69543d-c04a-4ed5-8321-dca686381ab4.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/fast-forward-forget-chatbots-ai-agents-are-the-future/' },
+  { url: '{{ url_for("static", filename="video/output_642f78f5-ce84-4288-a7c0-42b05800037a.mp4") }}', text1: 'For Complete information, click Source', url2: 'https://www.wired.com/story/apple-google-gemini-iphone/' }
+        ]
+      }
+    ];
+
+    // Main container where you want to append all categories and videos
+    var mainContainer = document.getElementById('main');
+
+    function addCategoriesAndVideos() {
+      categoriesAndVideos.forEach(function (categoryObj, index) {
+        // Create category header
+        var categoryHeader = document.createElement('h2');
+        categoryHeader.textContent = categoryObj.category;
+        mainContainer.appendChild(categoryHeader);
+
+        // Create a wrapper for the video container and arrows
+        var videoWrapper = document.createElement('div');
+        videoWrapper.className = 'video-wrapper';
+
+        // Create the left arrow for this category
+        var leftArrow = document.createElement('div');
+        leftArrow.className = 'arrow left-arrow';
+        leftArrow.textContent = '<';
+        leftArrow.onclick = function () {
+          scrollVideo('videoContainer' + index, 'left');
+        };
+
+        // Create the right arrow for this category
+        var rightArrow = document.createElement('div');
+        rightArrow.className = 'arrow right-arrow';
+        rightArrow.textContent = '>';
+        rightArrow.onclick = function () {
+          scrollVideo('videoContainer' + index, 'right');
+        };
+
+        // Create the video container for this category
+        var videoContainer = document.createElement('div');
+        videoContainer.className = 'video-container';
+        videoContainer.id = 'videoContainer' + index;
+
+        // Add videos and optional text under each video
+        categoryObj.videos.forEach(function (video, vidIndex) {
+          var videoItem = document.createElement('div');
+          videoItem.className = 'video-item';
+
+          var videoElement = document.createElement('video');
+          videoElement.controls = true;
+          videoElement.width = 320; // Set a width or use CSS classes
+
+          var sourceElement = document.createElement('source');
+          sourceElement.src = video.url;
+          sourceElement.type = 'video/mp4';
+
+          videoElement.appendChild(sourceElement);
+          videoItem.appendChild(videoElement);
+
+          // Add text below the video if it exists in the video object
+          if (video.text1) {
+            var text1 = document.createElement('p');
+            text1.textContent = video.text1 + " ";
+            videoItem.appendChild(text1);
+          }
+
+          // Add the "Source" text and link below the video
+if (video.url2) {
+  var sourceText = document.createElement('span');
+  sourceText.textContent = 'Source: ';
+  sourceText.style.color = '#000'; // Black color for "Source" text
+  videoItem.appendChild(sourceText);
+
+  var sourceLink = document.createElement('a');
+  sourceLink.textContent = video.url2.slice(0, 20) + '..';
+  sourceLink.href = '/questions?url=' + encodeURIComponent(video.url2);
+  sourceLink.target = '_self'; // Open link in the same page
+  sourceLink.title = video.url2; // Tooltip with full link
+  videoItem.appendChild(sourceLink);
+}
+
+
+          videoContainer.appendChild(videoItem);
+        });
+
+
+        // Append the left and right arrows and video container to the wrapper
+        videoWrapper.appendChild(leftArrow);
+        videoWrapper.appendChild(videoContainer);
+        videoWrapper.appendChild(rightArrow);
+
+        // Append the wrapper to the main container
+        mainContainer.appendChild(videoWrapper);
+      });
+    }
+
+    function scrollVideo(containerId, direction) {
+      var container = document.getElementById(containerId);
+      var scrollAmount = direction === 'left' ? -100 : 100; // Adjust these values as needed
+      container.scrollLeft += scrollAmount;
+    }
+
+    // Call the function to add categories and videos
+    addCategoriesAndVideos();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.getElementById('videoModal');
+      const modalVideo = document.querySelector('.modal-video');
+      const rightArrow = document.querySelector('.right-arrow');
+      const leftArrow = document.querySelector('.left-arrow');
+      let currentVideoIndex = 0;
+    
+      document.querySelectorAll('.video-item video').forEach(video => {
+        video.addEventListener('click', function () {
+          const videoSource = this.getElementsByTagName('source')[0].src;
+          console.log("Video source set to: ", videoSource); // Debug output
+          modalVideo.src = videoSource;
+          modalVideo.muted = true; // Mute the video
+          modalVideo.load(); // Force reload with new source
+          modal.style.display = 'flex'; // Display the modal
+          rightArrow.style.display = 'block'; // Show right arrow
+          leftArrow.style.display = 'block'; // Show left arrow
+          currentVideoIndex = Array.from(this.parentElement.children).indexOf(this.parentElement.querySelector('.video-item'));
+        });
+      });
+    
+      modalVideo.onloadeddata = () => {
+        // Don't play the video here
+      };
+    
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modalVideo.pause();
+          modalVideo.src = ''; // Clear the video source
+          modal.style.display = 'none';
+          rightArrow.style.display = 'none'; // Hide right arrow
+          leftArrow.style.display = 'none'; // Hide left arrow
+        }
+      });
+    
+      modal.addEventListener('transitionend', function (e) {
+        if (window.getComputedStyle(modal).display === 'flex') {
+          modalVideo.play(); // Play the video when the modal is visible
+        }
+      });
+    });
+    
+    
+
+     /* rightArrow.addEventListener('click', function () {
+        const currentVideoContainer = modalVideo.parentElement;
+        const nextVideoContainer = currentVideoContainer.nextElementSibling;
+        if (nextVideoContainer) {
+          const nextVideo = nextVideoContainer.querySelector('video');
+          const videoSource = nextVideo.querySelector('source').src;
+          modalVideo.src = videoSource;
+          modalVideo.load();
+          modalVideo.play();
+          currentVideoIndex++;
+        }
+      });
+
+      leftArrow.addEventListener('click', function () {
+        const currentVideoContainer = modalVideo.parentElement;
+        const prevVideoContainer = currentVideoContainer.previousElementSibling;
+        if (prevVideoContainer) {
+          const prevVideo = prevVideoContainer.querySelector('video');
+          const videoSource = prevVideo.querySelector('source').src;
+          modalVideo.src = videoSource;
+          modalVideo.load();
+          modalVideo.play();
+          currentVideoIndex--;
+        }
+      });*/
+    
+
+  </script>
+
+  <footer id="footer" class="footer">
+    <div class="footer-legal">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            
+            <div class="credits">
+              Designed by <a href="https://bootstrapmade.com/">SUMMARAIZE</a>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
